@@ -1,5 +1,6 @@
 import json
 import datetime;
+import common.constants as CONSTANTS
 
 class HostRecord():
 
@@ -11,6 +12,19 @@ class HostRecord():
         self._timestamp =  datetime.datetime.now().timestamp()
         #todo ver demais atributos
     #construtor
+
+
+    @staticmethod
+    def loadFromJSON( jsonStr ):
+        ret = HostRecord( None, None, None, None)
+        s = jsonStr[len( CONSTANTS.DATAHEADER ):]
+        dic = json.loads( s )
+        ret._hostname = dic["hostname"]
+        ret._MAC = dic["MAC"]
+        ret._loggedUser = dic["loggedUser"]
+        ret._timestamp =  dic["timestamp"]
+        return ret
+
 
     @staticmethod
     def getFromComputer():
@@ -34,7 +48,6 @@ class HostRecord():
         return self._timestamp
 
     def export( self ):
-        meDict = {'hostname': self.hostname, 'MAC': self._MAC, 'loggedUser': self.loggedUser }
+        meDict = {'hostname': self.hostname, 'MAC': self._MAC, 'loggedUser': self.loggedUser, "timestamp": self.timestamp }
         ret = json.dumps(meDict)
-        print(ret)
         return ret

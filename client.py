@@ -25,7 +25,5 @@ class Client():
 
     def updateStatus( self ):
         ss = ServerSession( self.config.servername, self.config.port )
-        ss.servername = self.config.servername
-        ss.port = self.config.port
-        ret = ss.sendInfo()
+        ret = ss.run()
         return ret
