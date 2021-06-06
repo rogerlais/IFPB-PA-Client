@@ -1,7 +1,6 @@
 from common.hostrecord import HostRecord
 from clientconfig import ClientConfig
 import common.constants as CONSTANTS
-import json
 import socket
 from common.datawrapper import DataWrapper
 
@@ -53,12 +52,12 @@ class Client():
         return (ret.retcode == CONSTANTS.RESP_OK) & (ret.msg == CONSTANTS.APP_VERSION)
 
     def request(self, data):
-        # Create a TCP/IP socket
+        # Cria TCP/IP socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # Connect the socket to the port where the server is listening
+        # Ajusta dados do servidor
         server_address = ('localhost', self.config.port)
         sock.connect(server_address)
-        # Create the data and load it into json
+        # Prepare string com os dados da requisição
         msg = data.asJSON  
         sock.sendall(msg.encode('utf-8'))
         ret = sock.recv(CONSTANTS.BUFSIZE)
