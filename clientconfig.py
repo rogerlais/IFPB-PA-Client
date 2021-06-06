@@ -1,6 +1,5 @@
 import sys
 
-
 class ClientConfig():
 
     def __init__(self, servername , port ):

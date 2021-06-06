@@ -20,19 +20,9 @@ def main():
 
     client = Client( cfg )
     client.showInfo()
-    try:
-        if( client.checkVersion() ):
-            hostStatus = client.updateStatus()
-            if( hostStatus.msg == CONSTANTS.VERB_POWEROFF ):
-                client.shutdown()
-            else:
-                client.poweron()
-        else:
-            print( 'Servidor desatualizado')
-            print( 'Cliente inerte')
-    except Exception as e:
-        print( e )    
-
+    ok = client.updateStatus()
+    if( not ok ):
+        client.shutdown()
 
 if __name__ == '__main__':
     main()
